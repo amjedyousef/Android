@@ -12,13 +12,10 @@ public class HttpManager {
 		HttpGet request = new HttpGet(uri);
 		HttpResponse response;
 		try {
-			response = client.execute(request); // An HttpClient will be received
-			return EntityUtils.toString(response.getEntity()); // the content of the HttpClient will be returned
+			response = client.execute(request);
+			return EntityUtils.toString(response.getEntity());
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}finally{
-			client.close();
+			// TODO: handle exception
 		}
 	}
 }

@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.action_get_data) {
 			if (isOnline()) {
-				requestData("http://services.hanselandpetal.com/feeds/flowers.xml");
+				requestData();
 			} else {
 				Toast.makeText(this, "Network isn't available", Toast.LENGTH_LONG).show();
 			}
@@ -56,9 +56,9 @@ public class MainActivity extends Activity {
 		return false;
 	}
 
-	private void requestData(String uri) {
+	private void requestData() {
 		MyTask task = new MyTask();
-		task.execute(uri);
+		task.execute("Param 1", "Param 2", "Param 3");
 	}
 
 	protected void updateDisplay(String message) {
@@ -90,9 +90,18 @@ public class MainActivity extends Activity {
 		@Override
 		protected String doInBackground(String... params) {
 			
-			String content =  HttpManager.getData(params[0]);
+			for (int i = 0; i < params.length; i++) {
+				publishProgress("Working with " + params[i]);
+				
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+			}
 			
-			return content ;
+			return "Task complete";
 		}
 		
 		@Override
